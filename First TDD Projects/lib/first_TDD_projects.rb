@@ -4,16 +4,22 @@ class Array
 
     #remove_dups
     def my_uniq
+        # arr = []
+        # self.each{|e|arr << e if !arr.include?(e)}
+        # arr
 
+        h = {}
+        self.each{|e|h[e] = true }
+        h.keys
     end
 
     def two_sum
-
+        arr = []
+        self.each_with_index do |e,i|
+            self.drop(i+1).each_with_index{|e2,i2| arr<<[i,i+i2+1] if e.abs == e2.abs }
+        end
+        arr.sort
     end
-
-
-    
-
 
 end
 
@@ -21,14 +27,21 @@ end
 
 
 def my_transpose(mulit_array)
-
+    mulit_array.map.with_index do |a1,i|
+        arr = []
+        mulit_array.each{|sub|arr<<sub[i]}
+        arr
+    end
 end
 
 
 def stock_picker(array)
-
+    pair = [0,0]
+    array.each_with_index do |e,i|
+        array.drop(i+1).each_with_index{|e2,i2| pair = [i,i+i2+1] if e2 - e > array[pair[1]] - array[pair[0]] }
+    end
+    pair
 end
-
 
 
 #Examples 
@@ -70,4 +83,4 @@ p my_transpose([
  #    [2, 5, 8]]
 
 
- p stock_picker([5, 8, 2, 4, 6]) # // => 4
+ p stock_picker([5, 8, 2, 4, 6]) # // => 4 [x,y]
